@@ -1,0 +1,16 @@
+;; WASI Exit API.
+;;
+;; This is a `witx` file. See [here](https://github.com/WebAssembly/WASI/tree/master/docs/witx.md)
+;; for an explanation of what that means.
+
+(use "typenames.witx")
+
+(module $wasi_ephemeral_exit
+  ;;; Unwind the current stack back to the point where the WebAssembly code was
+  ;;; called by the environment, and report the given exit status.
+  (@interface func (export "exit")
+    ;;; The exit code returned by the process.
+    (param $rval $exitcode)
+    (@witx noreturn)
+  )
+)

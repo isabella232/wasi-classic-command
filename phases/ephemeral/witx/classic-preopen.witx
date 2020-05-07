@@ -1,0 +1,26 @@
+;; WASI preopens.
+;;
+;; Support for preopened resource handles, passed into main via additional
+;; file descriptors, which may have paths or other associated metadata.
+;;
+;; This is a `witx` file. See [here](https://github.com/WebAssembly/WASI/tree/master/docs/witx.md)
+;; for an explanation of what that means.
+
+(module $wasi_ephemeral_classic_preopen
+  ;;; Return a description of the given preopened file descriptor.
+  (@interface func (export "prestat_get")
+    (param $fd $fd)
+    (result $error $errno)
+    ;;; The buffer where the description is stored.
+    (result $buf $prestat)
+  )
+
+  ;;; Return a description of the given preopened file descriptor.
+  (@interface func (export "prestat_dir_name")
+    (param $fd $fd)
+    ;;; A buffer into which to write the preopened directory name.
+    (param $path (@witx pointer char8))
+    (param $path_len $size)
+    (result $error $errno)
+  )
+)
